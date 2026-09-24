@@ -486,7 +486,8 @@ input[disabled]{
    MOBILE
 ========================= */
 
-.mobile-header{
+.mobile-header,
+.mobile-menu{
     display:none;
 }
 
