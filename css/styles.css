@@ -570,3 +570,23 @@ input[disabled]{
         padding:12px;
     }
 }
+
+/* LOGO EN CELULAR - FORZAR TAMAÑO */
+@media (max-width:750px){
+
+    .mobile-header{
+        height:60px !important;
+        padding:5px 15px !important;
+        justify-content:center !important;
+        overflow:hidden !important;
+    }
+
+    .mobile-header .mobile-logo{
+        width:50px !important;
+        max-width:50px !important;
+        height:50px !important;
+        max-height:50px !important;
+        object-fit:contain !important;
+        margin:0 auto !important;
+    }
+}
