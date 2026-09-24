@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malta Homes by Sofia</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f8fa;
+      color: #17324d;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 230px;
+      height: 100vh;
+      background: #f7f3ed;
+      padding: 30px 20px;
+      border-right: 1px solid #e5e5e5;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .logo h2 {
+      color: #063f4c;
+      letter-spacing: 2px;
+      font-size: 20px;
+    }
+
+    .logo span {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 17px;
+    }
+
+    .menu-item {
+      padding: 13px 15px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .menu-item:hover {
+      background: #e9efef;
+    }
+
+    .menu-item.active {
+      background: #075d67;
+      color: white;
+    }
+
+    /* MAIN */
+    .main {
+      margin-left: 230px;
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-size: 30px;
+      margin-bottom: 7px;
+    }
+
+    .header p {
+      color: #718096;
+    }
+
+    .btn {
+      border: none;
+      padding: 13px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #075d67;
+      color: white;
+    }
+
+    /* LAYOUT */
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e1e5e9;
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 20px;
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .required {
+      color: #e53935;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #ccd4dc;
+      border-radius: 7px;
+      font-size: 14px;
+      background: white;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #075d67;
+    }
+
+    input[disabled] {
+      background: #f0f0f0;
+      color: #777;
+    }
+
+    .optional {
+      font-size: 11px;
+      color: #999;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    /* COMMISSION */
+    .commission-result {
+      background: #e9f8ef;
+      border-radius: 9px;
+      padding: 15px;
+    }
+
+    .commission-result small {
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .commission-result strong {
+      color: #008c4a;
+      font-size: 24px;
+    }
+
+    /* UPLOAD */
+    .documents {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .upload {
+      border: 1px dashed #aeb9c4;
+      border-radius: 8px;
+      padding: 18px;
+      text-align: center;
+      background: #fafcfd;
+    }
+
+    .upload input {
+      margin-top: 10px;
+      font-size: 12px;
+    }
+
+    /* STATUS */
+    .status-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .percentage {
+      font-size: 35px;
+      font-weight: bold;
+      color: #f28c28;
+      margin: 15px 0;
+    }
+
+    .progress {
+      height: 10px;
+      background: #edf0f2;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #f28c28;
+      transition: .3s;
+    }
+
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+
+    .done {
+      color: #009b55;
+    }
+
+    .pending {
+      color: #8a939b;
+    }
+
+    .save-bottom {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .grid,
+      .grid.two,
+      .documents {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+  <div class="logo">
+    <h2>MALTA HOMES</h2>
+    <span>by Sofia</span>
+  </div>
+
+  <div class="menu-item">🏠 Dashboard</div>
+  <div class="menu-item">🏡 Rentas</div>
+  <div class="menu-item active">➕ Nueva renta</div>
+  <div class="menu-item">🔎 Buscar</div>
+  <div class="menu-item">📅 Histórico mensual</div>
+
+</div>
+
+<main class="main">
+
+  <div class="header">
+
+    <div>
+      <h1>Nueva renta</h1>
+      <p>Puedes guardar la renta aunque todavía falte información o documentación.</p>
+    </div>
+
+    <button class="btn btn-primary" onclick="guardarRenta()">
+      💾 Guardar renta
+    </button>
+
+  </div>
+
+  <div class="content">
+
+    <div>
+
+      <!-- DATOS PRINCIPALES -->
+      <section class="card">
+
+        <h3>🏠 1. Datos principales</h3>
+
+        <div class="grid">
+
+          <div>
+            <label>Agent</label>
+            <input value="Sofia Agudelo" disabled>
+          </div>
+
+          <div>
+            <label>Referencia <span class="required">*</span></label>
+            <input id="reference" oninput="actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>Nombre del cliente <span class="required">*</span></label>
+            <input id="client" oninput="actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>¿Cómo llegó el cliente? <span class="required">*</span></label>
+            <select id="source" onchange="actualizarProgreso()">
+              <option value="">Seleccionar...</option>
+              <option>Walking</option>
+              <option>Facebook</option>
+              <option>Instagram</option>
+              <option>WhatsApp</option>
+              <option>Referral</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div>
+            <label>Fecha de depósito <span class="required">*</span></label>
+            <input type="date" id="depositDate" onchange="actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>Fecha de contrato <span class="required">*</span></label>
+            <input type="date" id="contractDate" onchange="actualizarProgreso()">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- RENTA -->
+      <section class="card">
+
+        <h3>🏡 2. Detalles de la renta</h3>
+
+        <div class="grid">
+
+          <div>
+            <label>Propiedad / Dirección</label>
+            <input>
+            <div class="optional">Opcional</div>
+          </div>
+
+          <div>
+            <label>Precio de renta mensual <span class="required">*</span></label>
+            <input type="number" id="rentPrice" oninput="actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>Fecha fin de contrato</label>
+            <input type="date">
+            <div class="optional">Opcional</div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- COMISION -->
+      <section class="card">
+
+        <h3>💰 3. Comisiones</h3>
+
+        <div class="grid">
+
+          <div>
+            <label>Comisión inquilino (€) <span class="required">*</span></label>
+            <input type="number" id="tenantCommission"
+              oninput="calcularComision(); actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>Comisión propietario (€) <span class="required">*</span></label>
+            <input type="number" id="landlordCommission"
+              oninput="calcularComision(); actualizarProgreso()">
+          </div>
+
+          <div class="commission-result">
+            <small>Mi comisión (35%)</small>
+            <strong id="myCommission">€0,00</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- CONTACTO -->
+      <section class="card">
+
+        <h3>👤 4. Contacto del cliente</h3>
+
+        <div class="grid two">
+
+          <div>
+            <label>Número de contacto <span class="required">*</span></label>
+            <input id="phone" type="tel" oninput="actualizarProgreso()">
+          </div>
+
+          <div>
+            <label>Correo electrónico <span class="required">*</span></label>
+            <input id="email" type="email" oninput="actualizarProgreso()">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- DOCUMENTOS -->
+      <section class="card">
+
+        <h3>📄 5. Documentación</h3>
+
+        <div class="documents">
+
+          <div class="upload">
+            <strong>Recibo de depósito *</strong>
+            <input type="file" id="depositReceipt"
+              accept=".pdf" onchange="actualizarProgreso()">
+          </div>
+
+          <div class="upload">
+            <strong>Contrato *</strong>
+            <input type="file" id="contract"
+              accept=".pdf" onchange="actualizarProgreso()">
+          </div>
+
+          <div class="upload">
+            <strong>Pasaporte *</strong>
+            <input type="file" id="passport"
+              accept=".jpg,.jpeg,.png,.pdf"
+              onchange="actualizarProgreso()">
+          </div>
+
+          <div class="upload">
+            <strong>Inventario *</strong>
+            <input type="file" id="inventory"
+              accept=".pdf,.jpg,.jpeg,.png"
+              onchange="actualizarProgreso()">
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- OBSERVACIONES -->
+      <section class="card">
+
+        <h3>📝 6. Observaciones <small>(opcional)</small></h3>
+
+        <textarea rows="4"
+          placeholder="Añade aquí cualquier información adicional..."></textarea>
+
+      </section>
+
+      <button class="btn btn-primary save-bottom"
+        onclick="guardarRenta()">
+        💾 Guardar renta
+      </button>
+
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <aside>
+
+      <section class="card status-card">
+
+        <h3>Estado de la renta</h3>
+
+        <div class="percentage" id="percentage">0%</div>
+
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <p id="statusText">
+          Información pendiente
+        </p>
+
+      </section>
+
+      <section class="card">
+
+        <h3>Requisitos obligatorios</h3>
+
+        <ul class="checklist" id="checklist"></ul>
+
+      </section>
+
+    </aside>
+
+  </div>
+
+</main>
+
+<script>
+
+const requisitos = [
+  ["Referencia", "reference"],
+  ["Nombre del cliente", "client"],
+  ["Origen del cliente", "source"],
+  ["Fecha de depósito", "depositDate"],
+  ["Fecha de contrato", "contractDate"],
+  ["Precio de renta", "rentPrice"],
+  ["Comisión inquilino", "tenantCommission"],
+  ["Comisión propietario", "landlordCommission"],
+  ["Número de contacto", "phone"],
+  ["Correo electrónico", "email"],
+  ["Recibo de depósito", "depositReceipt"],
+  ["Contrato", "contract"],
+  ["Pasaporte", "passport"],
+  ["Inventario", "inventory"]
+];
+
+function campoCompleto(id) {
+
+  const element = document.getElementById(id);
+
+  if (!element) return false;
+
+  if (element.type === "file") {
+    return element.files.length > 0;
+  }
+
+  return element.value.trim() !== "";
+}
+
+function actualizarProgreso() {
+
+  let completos = 0;
+
+  const lista = document.getElementById("checklist");
+
+  lista.innerHTML = "";
+
+  requisitos.forEach(([nombre, id]) => {
+
+    const completo = campoCompleto(id);
+
+    if (completo) completos++;
+
+    const li = document.createElement("li");
+
+    li.className = completo ? "done" : "pending";
+
+    li.innerHTML =
+      (completo ? "✓ " : "○ ") + nombre;
+
+    lista.appendChild(li);
+
+  });
+
+  const porcentaje =
+    Math.round((completos / requisitos.length) * 100);
+
+  document.getElementById("percentage").innerText =
+    porcentaje + "%";
+
+  document.getElementById("progressBar").style.width =
+    porcentaje + "%";
+
+  document.getElementById("statusText").innerText =
+    porcentaje === 100
+      ? "✓ Renta completa"
+      : "Información pendiente";
+
+}
+
+function calcularComision() {
+
+  const tenant =
+    parseFloat(document.getElementById("tenantCommission").value) || 0;
+
+  const landlord =
+    parseFloat(document.getElementById("landlordCommission").value) || 0;
+
+  const total = tenant + landlord;
+
+  const commission = total * 0.35;
+
+  document.getElementById("myCommission").innerText =
+    "€" + commission.toFixed(2).replace(".", ",");
+
+}
+
+function guardarRenta() {
+
+  actualizarProgreso();
+
+  alert(
+    "Por ahora estamos probando la interfaz. " +
+    "En la siguiente etapa conectaremos Google Sheets y Google Drive."
+  );
+
+}
+
+actualizarProgreso();
+
+</script>
+
+</body>
+</html>
