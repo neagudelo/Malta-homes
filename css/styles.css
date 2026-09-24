@@ -571,22 +571,22 @@ input[disabled]{
     }
 }
 
-/* LOGO EN CELULAR - FORZAR TAMAÑO */
+/* LOGO HORIZONTAL EN CELULAR */
 @media (max-width:750px){
 
     .mobile-header{
-        height:60px !important;
-        padding:5px 15px !important;
-        justify-content:center !important;
-        overflow:hidden !important;
+        height:75px;
+        padding:8px 15px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
     }
 
     .mobile-header .mobile-logo{
-        width:50px !important;
-        max-width:50px !important;
-        height:50px !important;
-        max-height:50px !important;
-        object-fit:contain !important;
-        margin:0 auto !important;
+        width:230px;
+        max-width:80%;
+        height:auto;
+        display:block;
+        margin:0 auto;
     }
 }
