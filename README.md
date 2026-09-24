@@ -1,2 +1,2 @@
-# Malta_homes
+# malta-homes
 Malta Home By Sofia
