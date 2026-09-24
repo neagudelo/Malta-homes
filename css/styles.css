@@ -482,9 +482,11 @@ input[disabled]{
    MOBILE
 ========================= */
 
-.mobile-header,
-.mobile-menu{
-    display:none;
+.mobile-logo{
+    width:85px;
+    height:auto;
+    display:block;
+    margin:0 auto;
 }
 
 @media(max-width:1000px){
