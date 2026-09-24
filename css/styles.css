@@ -37,7 +37,7 @@ body{
     left:0;
     width:230px;
     height:100vh;
-    background:var(--cream);
+    background:#ffffff;
     border-right:1px solid #e5e5e5;
     padding:30px 20px;
     z-index:100;
