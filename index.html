@@ -1,639 +1,1613 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malta Homes by Sofia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<title>Malta Homes by Sofia</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --teal:#075d67;
+    --teal-dark:#064852;
+    --navy:#17324d;
+    --cream:#f7f3ed;
+    --bg:#f7f8fa;
+    --white:#ffffff;
+    --border:#e1e5e9;
+    --muted:#718096;
+    --green:#009b55;
+    --green-bg:#e9f8ef;
+    --orange:#f28c28;
+    --orange-bg:#fff4e8;
+    --red:#d64545;
+    --red-bg:#fff0f0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:var(--bg);
+    color:var(--navy);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:230px;
+    height:100vh;
+    background:var(--cream);
+    border-right:1px solid #e5e5e5;
+    padding:30px 20px;
+    z-index:100;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.logo h2{
+    color:#063f4c;
+    letter-spacing:2px;
+    font-size:20px;
+}
+
+.logo span{
+    font-family:Georgia,serif;
+    font-style:italic;
+    font-size:17px;
+}
+
+.menu-item{
+    padding:13px 15px;
+    margin-bottom:8px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+.menu-item:hover{
+    background:#e8eeee;
+}
+
+.menu-item.active{
+    background:var(--teal);
+    color:white;
+}
+
+/* =========================
+   GENERAL
+========================= */
+
+.main{
+    margin-left:230px;
+    padding:40px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+    gap:20px;
+}
+
+.header h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.header p{
+    color:var(--muted);
+}
+
+.btn{
+    border:none;
+    padding:13px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.btn-primary{
+    background:var(--teal);
+    color:white;
+}
+
+.btn-secondary{
+    background:white;
+    color:var(--teal);
+    border:1px solid var(--teal);
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:22px;
+    margin-bottom:20px;
+}
+
+.card h3{
+    margin-bottom:20px;
+    font-size:17px;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.month-bar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:15px 20px;
+    margin-bottom:22px;
+}
+
+.month-bar button{
+    border:none;
+    background:#eef3f4;
+    color:var(--teal);
+    width:38px;
+    height:38px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.month-title{
+    font-size:17px;
+    font-weight:bold;
+    text-transform:capitalize;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.stat-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:20px;
+}
+
+.stat-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:14px;
+}
+
+.stat-icon{
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:#eef5f5;
+    font-size:19px;
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.stat-value{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:5px;
+}
+
+.green-value{
+    color:var(--green);
+}
+
+.orange-value{
+    color:var(--orange);
+}
+
+.dashboard-columns{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:22px;
+}
+
+.rental-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 0;
+    border-bottom:1px solid #edf0f2;
+    gap:15px;
+}
+
+.rental-row:last-child{
+    border-bottom:none;
+}
+
+.rental-main strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.rental-main small{
+    color:var(--muted);
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.badge-green{
+    background:var(--green-bg);
+    color:var(--green);
+}
+
+.badge-orange{
+    background:var(--orange-bg);
+    color:#c96c08;
+}
+
+.badge-red{
+    background:var(--red-bg);
+    color:var(--red);
+}
+
+.empty-state{
+    text-align:center;
+    padding:30px 10px;
+    color:var(--muted);
+}
+
+.empty-state .icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+/* =========================
+   NUEVA RENTA
+========================= */
+
+.form-layout{
+    display:grid;
+    grid-template-columns:1fr 310px;
+    gap:25px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.grid.two{
+    grid-template-columns:repeat(2,1fr);
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.required{
+    color:#e53935;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd4dc;
+    border-radius:7px;
+    font-size:14px;
+    background:white;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    outline:none;
+    border-color:var(--teal);
+}
+
+input[disabled]{
+    background:#f0f0f0;
+    color:#777;
+}
+
+.optional{
+    font-size:11px;
+    color:#999;
+    text-align:right;
+    margin-top:4px;
+}
+
+.commission-text{
+    background:#eef5ff;
+    border-radius:9px;
+    padding:15px;
+}
+
+.commission-text small{
+    display:block;
+    margin-bottom:7px;
+}
+
+.commission-text strong{
+    font-size:16px;
+}
+
+.commission-result{
+    background:var(--green-bg);
+    border-radius:9px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.commission-result small{
+    display:block;
+    margin-bottom:7px;
+}
+
+.commission-result strong{
+    color:var(--green);
+    font-size:24px;
+}
+
+.documents{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.upload{
+    border:1px dashed #aeb9c4;
+    border-radius:8px;
+    padding:18px;
+    text-align:center;
+    background:#fafcfd;
+}
+
+.upload strong{
+    display:block;
+    margin-bottom:8px;
+}
+
+.upload input{
+    margin-top:10px;
+    font-size:12px;
+}
+
+.percentage{
+    font-size:35px;
+    font-weight:bold;
+    color:var(--orange);
+    margin:15px 0;
+}
+
+.progress{
+    height:10px;
+    background:#edf0f2;
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:var(--orange);
+    transition:.3s;
+}
+
+.checklist{
+    list-style:none;
+}
+
+.checklist li{
+    padding:8px 0;
+    border-bottom:1px solid #f0f0f0;
+    font-size:13px;
+}
+
+.done{
+    color:var(--green);
+}
+
+.pending{
+    color:#8a939b;
+}
+
+.save-bottom{
+    width:100%;
+    margin-top:10px;
+    font-size:15px;
+}
+
+/* =========================
+   PLACEHOLDER PAGES
+========================= */
+
+.placeholder{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:60px 30px;
+    text-align:center;
+}
+
+.placeholder .big-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.placeholder h2{
+    margin-bottom:10px;
+}
+
+.placeholder p{
+    color:var(--muted);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.mobile-header{
+    display:none;
+}
+
+@media(max-width:1000px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f8fa;
-      color: #17324d;
+    .dashboard-columns{
+        grid-template-columns:1fr;
     }
 
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 230px;
-      height: 100vh;
-      background: #f7f3ed;
-      padding: 30px 20px;
-      border-right: 1px solid #e5e5e5;
+    .form-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:750px){
+
+    .sidebar{
+        display:none;
     }
 
-    .logo {
-      text-align: center;
-      margin-bottom: 45px;
+    .mobile-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        background:var(--cream);
+        padding:15px 18px;
+        border-bottom:1px solid var(--border);
+        position:sticky;
+        top:0;
+        z-index:90;
     }
 
-    .logo h2 {
-      color: #063f4c;
-      letter-spacing: 2px;
-      font-size: 20px;
+    .mobile-header strong{
+        color:var(--teal);
     }
 
-    .logo span {
-      font-family: Georgia, serif;
-      font-style: italic;
-      font-size: 17px;
+    .mobile-menu{
+        display:flex;
+        gap:5px;
+        overflow-x:auto;
+        background:white;
+        padding:10px;
+        border-bottom:1px solid var(--border);
     }
 
-    .menu-item {
-      padding: 13px 15px;
-      margin-bottom: 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
+    .mobile-menu button{
+        white-space:nowrap;
+        border:none;
+        background:#eef3f4;
+        padding:9px 12px;
+        border-radius:7px;
+        color:var(--navy);
+        cursor:pointer;
     }
 
-    .menu-item:hover {
-      background: #e9efef;
+    .main{
+        margin-left:0;
+        padding:20px;
     }
 
-    .menu-item.active {
-      background: #075d67;
-      color: white;
+    .header{
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    /* MAIN */
-    .main {
-      margin-left: 230px;
-      padding: 40px;
+    .grid,
+    .grid.two,
+    .documents{
+        grid-template-columns:1fr;
     }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
+    .stats-grid{
+        grid-template-columns:1fr;
     }
 
-    .header h1 {
-      font-size: 30px;
-      margin-bottom: 7px;
+    .month-bar{
+        padding:12px;
     }
-
-    .header p {
-      color: #718096;
-    }
-
-    .btn {
-      border: none;
-      padding: 13px 22px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #075d67;
-      color: white;
-    }
-
-    /* LAYOUT */
-    .content {
-      display: grid;
-      grid-template-columns: 1fr 310px;
-      gap: 25px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e1e5e9;
-      border-radius: 12px;
-      padding: 22px;
-      margin-bottom: 20px;
-    }
-
-    .card h3 {
-      margin-bottom: 20px;
-      font-size: 17px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .grid.two {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: bold;
-      margin-bottom: 7px;
-    }
-
-    .required {
-      color: #e53935;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 11px;
-      border: 1px solid #ccd4dc;
-      border-radius: 7px;
-      font-size: 14px;
-      background: white;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: #075d67;
-    }
-
-    input[disabled] {
-      background: #f0f0f0;
-      color: #777;
-    }
-
-    .optional {
-      font-size: 11px;
-      color: #999;
-      text-align: right;
-      margin-top: 4px;
-    }
-
-    /* COMMISSION */
-    .commission-result {
-      background: #e9f8ef;
-      border-radius: 9px;
-      padding: 15px;
-    }
-
-    .commission-result small {
-      display: block;
-      margin-bottom: 7px;
-    }
-
-    .commission-result strong {
-      color: #008c4a;
-      font-size: 24px;
-    }
-
-    /* UPLOAD */
-    .documents {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .upload {
-      border: 1px dashed #aeb9c4;
-      border-radius: 8px;
-      padding: 18px;
-      text-align: center;
-      background: #fafcfd;
-    }
-
-    .upload input {
-      margin-top: 10px;
-      font-size: 12px;
-    }
-
-    /* STATUS */
-    .status-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .percentage {
-      font-size: 35px;
-      font-weight: bold;
-      color: #f28c28;
-      margin: 15px 0;
-    }
-
-    .progress {
-      height: 10px;
-      background: #edf0f2;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
-
-    .progress-bar {
-      width: 0%;
-      height: 100%;
-      background: #f28c28;
-      transition: .3s;
-    }
-
-    .checklist {
-      list-style: none;
-    }
-
-    .checklist li {
-      padding: 8px 0;
-      border-bottom: 1px solid #f0f0f0;
-      font-size: 13px;
-    }
-
-    .done {
-      color: #009b55;
-    }
-
-    .pending {
-      color: #8a939b;
-    }
-
-    .save-bottom {
-      width: 100%;
-      margin-top: 10px;
-      font-size: 15px;
-    }
-
-    @media (max-width: 900px) {
-      .sidebar {
-        display: none;
-      }
-
-      .main {
-        margin-left: 0;
-        padding: 20px;
-      }
-
-      .content {
-        grid-template-columns: 1fr;
-      }
-
-      .grid,
-      .grid.two,
-      .documents {
-        grid-template-columns: 1fr;
-      }
-
-      .header {
-        align-items: flex-start;
-        gap: 15px;
-        flex-direction: column;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-<div class="sidebar">
+<!-- SIDEBAR -->
 
-  <div class="logo">
-    <h2>MALTA HOMES</h2>
-    <span>by Sofia</span>
-  </div>
+<aside class="sidebar">
 
-  <div class="menu-item">🏠 Dashboard</div>
-  <div class="menu-item">🏡 Rentas</div>
-  <div class="menu-item active">➕ Nueva renta</div>
-  <div class="menu-item">🔎 Buscar</div>
-  <div class="menu-item">📅 Histórico mensual</div>
+    <div class="logo">
+        <h2>MALTA HOMES</h2>
+        <span>by Sofia</span>
+    </div>
 
+    <div class="menu-item active"
+         data-page="dashboard"
+         onclick="showPage('dashboard',this)">
+        🏠 Dashboard
+    </div>
+
+    <div class="menu-item"
+         data-page="rentas"
+         onclick="showPage('rentas',this)">
+        🏡 Rentas
+    </div>
+
+    <div class="menu-item"
+         data-page="nueva"
+         onclick="showPage('nueva',this)">
+        ➕ Nueva renta
+    </div>
+
+    <div class="menu-item"
+         data-page="buscar"
+         onclick="showPage('buscar',this)">
+        🔎 Buscar
+    </div>
+
+    <div class="menu-item"
+         data-page="historico"
+         onclick="showPage('historico',this)">
+        📅 Histórico mensual
+    </div>
+
+</aside>
+
+<!-- MOBILE -->
+
+<div class="mobile-header">
+    <strong>MALTA HOMES by Sofia</strong>
+</div>
+
+<div class="mobile-menu">
+    <button onclick="showPage('dashboard')">Dashboard</button>
+    <button onclick="showPage('rentas')">Rentas</button>
+    <button onclick="showPage('nueva')">Nueva renta</button>
+    <button onclick="showPage('buscar')">Buscar</button>
+    <button onclick="showPage('historico')">Histórico</button>
 </div>
 
 <main class="main">
 
-  <div class="header">
+<!-- =================================================
+     DASHBOARD
+================================================== -->
 
-    <div>
-      <h1>Nueva renta</h1>
-      <p>Puedes guardar la renta aunque todavía falte información o documentación.</p>
-    </div>
+<section id="dashboard" class="page active">
 
-    <button class="btn btn-primary" onclick="guardarRenta()">
-      💾 Guardar renta
-    </button>
+    <div class="header">
 
-  </div>
-
-  <div class="content">
-
-    <div>
-
-      <!-- DATOS PRINCIPALES -->
-      <section class="card">
-
-        <h3>🏠 1. Datos principales</h3>
-
-        <div class="grid">
-
-          <div>
-            <label>Agent</label>
-            <input value="Sofia Agudelo" disabled>
-          </div>
-
-          <div>
-            <label>Referencia <span class="required">*</span></label>
-            <input id="reference" oninput="actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>Nombre del cliente <span class="required">*</span></label>
-            <input id="client" oninput="actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>¿Cómo llegó el cliente? <span class="required">*</span></label>
-            <select id="source" onchange="actualizarProgreso()">
-              <option value="">Seleccionar...</option>
-              <option>Walking</option>
-              <option>Facebook</option>
-              <option>Instagram</option>
-              <option>WhatsApp</option>
-              <option>Referral</option>
-              <option>Otro</option>
-            </select>
-          </div>
-
-          <div>
-            <label>Fecha de depósito <span class="required">*</span></label>
-            <input type="date" id="depositDate" onchange="actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>Fecha de contrato <span class="required">*</span></label>
-            <input type="date" id="contractDate" onchange="actualizarProgreso()">
-          </div>
-
+        <div>
+            <h1>Dashboard</h1>
+            <p>Resumen mensual de tus rentas y comisiones.</p>
         </div>
 
-      </section>
-
-      <!-- RENTA -->
-      <section class="card">
-
-        <h3>🏡 2. Detalles de la renta</h3>
-
-        <div class="grid">
-
-          <div>
-            <label>Propiedad / Dirección</label>
-            <input>
-            <div class="optional">Opcional</div>
-          </div>
-
-          <div>
-            <label>Precio de renta mensual <span class="required">*</span></label>
-            <input type="number" id="rentPrice" oninput="actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>Fecha fin de contrato</label>
-            <input type="date">
-            <div class="optional">Opcional</div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- COMISION -->
-      <section class="card">
-
-        <h3>💰 3. Comisiones</h3>
-
-        <div class="grid">
-
-          <div>
-            <label>Comisión inquilino (€) <span class="required">*</span></label>
-            <input type="number" id="tenantCommission"
-              oninput="calcularComision(); actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>Comisión propietario (€) <span class="required">*</span></label>
-            <input type="number" id="landlordCommission"
-              oninput="calcularComision(); actualizarProgreso()">
-          </div>
-
-          <div class="commission-result">
-            <small>Mi comisión (35%)</small>
-            <strong id="myCommission">€0,00</strong>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- CONTACTO -->
-      <section class="card">
-
-        <h3>👤 4. Contacto del cliente</h3>
-
-        <div class="grid two">
-
-          <div>
-            <label>Número de contacto <span class="required">*</span></label>
-            <input id="phone" type="tel" oninput="actualizarProgreso()">
-          </div>
-
-          <div>
-            <label>Correo electrónico <span class="required">*</span></label>
-            <input id="email" type="email" oninput="actualizarProgreso()">
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- DOCUMENTOS -->
-      <section class="card">
-
-        <h3>📄 5. Documentación</h3>
-
-        <div class="documents">
-
-          <div class="upload">
-            <strong>Recibo de depósito *</strong>
-            <input type="file" id="depositReceipt"
-              accept=".pdf" onchange="actualizarProgreso()">
-          </div>
-
-          <div class="upload">
-            <strong>Contrato *</strong>
-            <input type="file" id="contract"
-              accept=".pdf" onchange="actualizarProgreso()">
-          </div>
-
-          <div class="upload">
-            <strong>Pasaporte *</strong>
-            <input type="file" id="passport"
-              accept=".jpg,.jpeg,.png,.pdf"
-              onchange="actualizarProgreso()">
-          </div>
-
-          <div class="upload">
-            <strong>Inventario *</strong>
-            <input type="file" id="inventory"
-              accept=".pdf,.jpg,.jpeg,.png"
-              onchange="actualizarProgreso()">
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- OBSERVACIONES -->
-      <section class="card">
-
-        <h3>📝 6. Observaciones <small>(opcional)</small></h3>
-
-        <textarea rows="4"
-          placeholder="Añade aquí cualquier información adicional..."></textarea>
-
-      </section>
-
-      <button class="btn btn-primary save-bottom"
-        onclick="guardarRenta()">
-        💾 Guardar renta
-      </button>
+        <button class="btn btn-primary"
+                onclick="showPage('nueva')">
+            + Nueva renta
+        </button>
 
     </div>
 
-    <!-- PANEL DERECHO -->
-    <aside>
+    <div class="month-bar">
 
-      <section class="card status-card">
+        <button onclick="cambiarMes(-1)">‹</button>
 
-        <h3>Estado de la renta</h3>
-
-        <div class="percentage" id="percentage">0%</div>
-
-        <div class="progress">
-          <div class="progress-bar" id="progressBar"></div>
+        <div class="month-title" id="monthTitle">
+            Septiembre 2026
         </div>
 
-        <p id="statusText">
-          Información pendiente
+        <button onclick="cambiarMes(1)">›</button>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Rentas del mes</span>
+                <div class="stat-icon">🏠</div>
+            </div>
+            <div class="stat-value" id="statRentals">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Comisión generada</span>
+                <div class="stat-icon">💰</div>
+            </div>
+            <div class="stat-value" id="statGenerated">€0,00</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Comisión pagada</span>
+                <div class="stat-icon">✅</div>
+            </div>
+            <div class="stat-value green-value" id="statPaid">€0,00</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Por cobrar</span>
+                <div class="stat-icon">⏳</div>
+            </div>
+            <div class="stat-value orange-value" id="statPending">€0,00</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">100% completas</span>
+                <div class="stat-icon">🟢</div>
+            </div>
+            <div class="stat-value" id="statComplete">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">Información pendiente</span>
+                <div class="stat-icon">⚠️</div>
+            </div>
+            <div class="stat-value" id="statIncomplete">0</div>
+        </div>
+
+    </div>
+
+    <div class="dashboard-columns">
+
+        <section class="card">
+
+            <h3>⚠️ Pendientes por completar</h3>
+
+            <div id="pendingRentals">
+
+                <div class="empty-state">
+                    <div class="icon">📋</div>
+                    <strong>No hay rentas pendientes</strong>
+                    <p>Las rentas incompletas del mes aparecerán aquí.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="card">
+
+            <h3>💰 Estado de comisiones</h3>
+
+            <div class="rental-row">
+                <div class="rental-main">
+                    <strong>Pagadas</strong>
+                    <small>Comisiones recibidas</small>
+                </div>
+                <span class="badge badge-green" id="paidCount">0</span>
+            </div>
+
+            <div class="rental-row">
+                <div class="rental-main">
+                    <strong>Pendientes</strong>
+                    <small>Comisiones por recibir</small>
+                </div>
+                <span class="badge badge-orange" id="pendingCount">0</span>
+            </div>
+
+        </section>
+
+    </div>
+
+</section>
+
+<!-- =================================================
+     RENTAS
+================================================== -->
+
+<section id="rentas" class="page">
+
+    <div class="header">
+        <div>
+            <h1>Rentas</h1>
+            <p>Consulta y administra todas tus rentas registradas.</p>
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="showPage('nueva')">
+            + Nueva renta
+        </button>
+    </div>
+
+    <div class="placeholder">
+        <div class="big-icon">🏡</div>
+        <h2>Listado de rentas</h2>
+        <p>
+            Aquí aparecerán las rentas cuando conectemos
+            la aplicación con Google Sheets.
+        </p>
+    </div>
+
+</section>
+
+<!-- =================================================
+     NUEVA RENTA
+================================================== -->
+
+<section id="nueva" class="page">
+
+    <div class="header">
+
+        <div>
+            <h1>Nueva renta</h1>
+            <p>
+                Puedes guardar la renta aunque todavía falte
+                información o documentación.
+            </p>
+        </div>
+
+        <button class="btn btn-primary"
+                onclick="guardarRenta()">
+            💾 Guardar renta
+        </button>
+
+    </div>
+
+    <div class="form-layout">
+
+        <div>
+
+            <!-- 1 -->
+
+            <section class="card">
+
+                <h3>🏠 1. Datos principales</h3>
+
+                <div class="grid">
+
+                    <div>
+                        <label>Agent</label>
+                        <input value="Sofia Agudelo" disabled>
+                    </div>
+
+                    <div>
+                        <label>
+                            Referencia
+                            <span class="required">*</span>
+                        </label>
+
+                        <input id="reference"
+                               oninput="actualizarProgreso()">
+                    </div>
+
+                    <div>
+                        <label>
+                            Nombre del cliente
+                            <span class="required">*</span>
+                        </label>
+
+                        <input id="client"
+                               oninput="actualizarProgreso()">
+                    </div>
+
+                    <div>
+                        <label>
+                            ¿Cómo llegó el cliente?
+                            <span class="required">*</span>
+                        </label>
+
+                        <select id="source"
+                                onchange="actualizarProgreso()">
+
+                            <option value="">
+                                Seleccionar...
+                            </option>
+
+                            <option>Walking</option>
+                            <option>Facebook</option>
+                            <option>Instagram</option>
+                            <option>WhatsApp</option>
+                            <option>Referral</option>
+                            <option>Easy Rent</option>
+                            <option>Otro</option>
+
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>
+                            Fecha de depósito
+                            <span class="required">*</span>
+                        </label>
+
+                        <input type="date"
+                               id="depositDate"
+                               onchange="actualizarProgreso()">
+                    </div>
+
+                    <div>
+                        <label>
+                            Fecha de contrato
+                            <span class="required">*</span>
+                        </label>
+
+                        <input type="date"
+                               id="contractDate"
+                               onchange="actualizarProgreso()">
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 2 -->
+
+            <section class="card">
+
+                <h3>🏡 2. Detalles de la renta</h3>
+
+                <div class="grid">
+
+                    <div>
+                        <label>Propiedad / Dirección</label>
+                        <input id="propertyAddress">
+                        <div class="optional">Opcional</div>
+                    </div>
+
+                    <div>
+                        <label>
+                            Precio de renta mensual
+                            <span class="required">*</span>
+                        </label>
+
+                        <input type="number"
+                               min="0"
+                               step="0.01"
+                               id="rentPrice"
+                               oninput="actualizarProgreso()">
+                    </div>
+
+                    <div>
+                        <label>Fecha fin de contrato</label>
+
+                        <input type="date"
+                               id="contractEnd">
+
+                        <div class="optional">Opcional</div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 3 -->
+
+            <section class="card">
+
+                <h3>💰 3. Comisiones</h3>
+
+                <div class="grid">
+
+                    <div>
+
+                        <label>
+                            Comisión inquilino (€)
+                            <span class="required">*</span>
+                        </label>
+
+                        <input type="number"
+                               min="0"
+                               step="0.01"
+                               id="tenantCommission"
+                               oninput="
+                               calcularComision();
+                               actualizarProgreso();
+                               ">
+                    </div>
+
+                    <div>
+
+                        <label>
+                            Comisión propietario (€)
+                            <span class="required">*</span>
+                        </label>
+
+                        <input type="number"
+                               min="0"
+                               step="0.01"
+                               id="landlordCommission"
+                               oninput="
+                               calcularComision();
+                               actualizarProgreso();
+                               ">
+                    </div>
+
+                    <div>
+
+                        <div class="commission-text">
+
+                            <small>
+                                Commission amount
+                            </small>
+
+                            <strong id="commissionText">
+                                €0 VAT + €0
+                            </strong>
+
+                        </div>
+
+                        <div class="commission-result">
+
+                            <small>
+                                Tu comisión (35%)
+                            </small>
+
+                            <strong id="myCommission">
+                                €0,00
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 4 -->
+
+            <section class="card">
+
+                <h3>👤 4. Contacto del cliente</h3>
+
+                <div class="grid two">
+
+                    <div>
+                        <label>
+                            Número de contacto
+                            <span class="required">*</span>
+                        </label>
+
+                        <input id="phone"
+                               type="tel"
+                               oninput="actualizarProgreso()">
+                    </div>
+
+                    <div>
+                        <label>
+                            Correo electrónico
+                            <span class="required">*</span>
+                        </label>
+
+                        <input id="email"
+                               type="email"
+                               oninput="actualizarProgreso()">
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 5 -->
+
+            <section class="card">
+
+                <h3>📄 5. Documentación</h3>
+
+                <div class="documents">
+
+                    <div class="upload">
+
+                        <strong>
+                            Recibo de depósito *
+                        </strong>
+
+                        <input type="file"
+                               id="depositReceipt"
+                               accept=".pdf"
+                               onchange="actualizarProgreso()">
+
+                    </div>
+
+                    <div class="upload">
+
+                        <strong>
+                            Contrato *
+                        </strong>
+
+                        <input type="file"
+                               id="contract"
+                               accept=".pdf"
+                               onchange="actualizarProgreso()">
+
+                    </div>
+
+                    <div class="upload">
+
+                        <strong>
+                            Pasaporte *
+                        </strong>
+
+                        <input type="file"
+                               id="passport"
+                               accept=".jpg,.jpeg,.png,.pdf"
+                               onchange="actualizarProgreso()">
+
+                    </div>
+
+                    <div class="upload">
+
+                        <strong>
+                            Inventario *
+                        </strong>
+
+                        <input type="file"
+                               id="inventory"
+                               accept=".pdf,.jpg,.jpeg,.png"
+                               onchange="actualizarProgreso()">
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- 6 -->
+
+            <section class="card">
+
+                <h3>
+                    📝 6. Observaciones
+                    <small>(opcional)</small>
+                </h3>
+
+                <textarea id="notes"
+                          rows="4"
+                          placeholder="Añade aquí cualquier información adicional..."></textarea>
+
+            </section>
+
+            <button class="btn btn-primary save-bottom"
+                    onclick="guardarRenta()">
+                💾 Guardar renta
+            </button>
+
+        </div>
+
+        <!-- PANEL DERECHO -->
+
+        <aside>
+
+            <section class="card">
+
+                <h3>Estado de la renta</h3>
+
+                <div class="percentage"
+                     id="percentage">
+                    0%
+                </div>
+
+                <div class="progress">
+
+                    <div class="progress-bar"
+                         id="progressBar">
+                    </div>
+
+                </div>
+
+                <p id="statusText">
+                    Información pendiente
+                </p>
+
+            </section>
+
+            <section class="card">
+
+                <h3>Requisitos obligatorios</h3>
+
+                <ul class="checklist"
+                    id="checklist">
+                </ul>
+
+            </section>
+
+            <section class="card">
+
+                <h3>💡 Importante</h3>
+
+                <p style="
+                    font-size:13px;
+                    line-height:1.6;
+                    color:#718096;
+                ">
+                    Puedes guardar una renta aunque falte
+                    información o documentación.
+                    <br><br>
+                    Llegará al 100% cuando todos los requisitos
+                    obligatorios estén completos.
+                </p>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+<!-- =================================================
+     BUSCAR
+================================================== -->
+
+<section id="buscar" class="page">
+
+    <div class="header">
+
+        <div>
+            <h1>Buscar</h1>
+            <p>
+                Consulta rentas por referencia, cliente,
+                fechas, estado y otros criterios.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="placeholder">
+
+        <div class="big-icon">🔎</div>
+
+        <h2>Búsqueda avanzada</h2>
+
+        <p>
+            Construiremos esta sección después de conectar
+            los datos con Google Sheets.
         </p>
 
-      </section>
+    </div>
 
-      <section class="card">
+</section>
 
-        <h3>Requisitos obligatorios</h3>
+<!-- =================================================
+     HISTORICO
+================================================== -->
 
-        <ul class="checklist" id="checklist"></ul>
+<section id="historico" class="page">
 
-      </section>
+    <div class="header">
 
-    </aside>
+        <div>
+            <h1>Histórico mensual</h1>
+            <p>
+                Consulta tus rentas y comisiones mes a mes.
+            </p>
+        </div>
 
-  </div>
+    </div>
+
+    <div class="placeholder">
+
+        <div class="big-icon">📅</div>
+
+        <h2>Cierres mensuales</h2>
+
+        <p>
+            Aquí podrás consultar y cerrar cada período mensual.
+        </p>
+
+    </div>
+
+</section>
 
 </main>
 
 <script>
 
+/* =========================
+   NAVEGACIÓN
+========================= */
+
+function showPage(pageId, clickedItem){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(page=>{
+            page.classList.remove("active");
+        });
+
+    const page =
+        document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    document
+        .querySelectorAll(".menu-item")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
+    const sidebarItem =
+        document.querySelector(
+            '.menu-item[data-page="' +
+            pageId +
+            '"]'
+        );
+
+    if(sidebarItem){
+        sidebarItem.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+/* =========================
+   MES DASHBOARD
+========================= */
+
+let dashboardDate =
+    new Date(2026,8,1);
+
+function actualizarMes(){
+
+    const formatter =
+        new Intl.DateTimeFormat(
+            "es-ES",
+            {
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+    let texto =
+        formatter.format(dashboardDate);
+
+    texto =
+        texto.charAt(0).toUpperCase() +
+        texto.slice(1);
+
+    document
+        .getElementById("monthTitle")
+        .innerText = texto;
+}
+
+function cambiarMes(cambio){
+
+    dashboardDate.setMonth(
+        dashboardDate.getMonth() + cambio
+    );
+
+    actualizarMes();
+
+    /* Cuando conectemos Google Sheets,
+       aquí actualizaremos los datos
+       correspondientes al mes seleccionado. */
+}
+
+/* =========================
+   REQUISITOS
+========================= */
+
 const requisitos = [
-  ["Referencia", "reference"],
-  ["Nombre del cliente", "client"],
-  ["Origen del cliente", "source"],
-  ["Fecha de depósito", "depositDate"],
-  ["Fecha de contrato", "contractDate"],
-  ["Precio de renta", "rentPrice"],
-  ["Comisión inquilino", "tenantCommission"],
-  ["Comisión propietario", "landlordCommission"],
-  ["Número de contacto", "phone"],
-  ["Correo electrónico", "email"],
-  ["Recibo de depósito", "depositReceipt"],
-  ["Contrato", "contract"],
-  ["Pasaporte", "passport"],
-  ["Inventario", "inventory"]
+
+    ["Referencia","reference"],
+    ["Nombre del cliente","client"],
+    ["Origen del cliente","source"],
+    ["Fecha de depósito","depositDate"],
+    ["Fecha de contrato","contractDate"],
+    ["Precio de renta","rentPrice"],
+    ["Comisión inquilino","tenantCommission"],
+    ["Comisión propietario","landlordCommission"],
+    ["Número de contacto","phone"],
+    ["Correo electrónico","email"],
+    ["Recibo de depósito","depositReceipt"],
+    ["Contrato","contract"],
+    ["Pasaporte","passport"],
+    ["Inventario","inventory"]
+
 ];
 
-function campoCompleto(id) {
+function campoCompleto(id){
 
-  const element = document.getElementById(id);
+    const element =
+        document.getElementById(id);
 
-  if (!element) return false;
+    if(!element){
+        return false;
+    }
 
-  if (element.type === "file") {
-    return element.files.length > 0;
-  }
+    if(element.type === "file"){
+        return element.files.length > 0;
+    }
 
-  return element.value.trim() !== "";
+    return element.value.trim() !== "";
 }
 
-function actualizarProgreso() {
+/* =========================
+   PROGRESO
+========================= */
 
-  let completos = 0;
+function actualizarProgreso(){
 
-  const lista = document.getElementById("checklist");
+    let completos = 0;
 
-  lista.innerHTML = "";
+    const lista =
+        document.getElementById("checklist");
 
-  requisitos.forEach(([nombre, id]) => {
+    lista.innerHTML = "";
 
-    const completo = campoCompleto(id);
+    requisitos.forEach(
+        ([nombre,id])=>{
 
-    if (completo) completos++;
+            const completo =
+                campoCompleto(id);
 
-    const li = document.createElement("li");
+            if(completo){
+                completos++;
+            }
 
-    li.className = completo ? "done" : "pending";
+            const li =
+                document.createElement("li");
 
-    li.innerHTML =
-      (completo ? "✓ " : "○ ") + nombre;
+            li.className =
+                completo
+                ? "done"
+                : "pending";
 
-    lista.appendChild(li);
+            li.innerHTML =
+                (completo ? "✓ " : "○ ")
+                + nombre;
 
-  });
+            lista.appendChild(li);
+        }
+    );
 
-  const porcentaje =
-    Math.round((completos / requisitos.length) * 100);
+    const porcentaje =
+        Math.round(
+            (completos /
+             requisitos.length)
+             * 100
+        );
 
-  document.getElementById("percentage").innerText =
-    porcentaje + "%";
+    const percentage =
+        document.getElementById(
+            "percentage"
+        );
 
-  document.getElementById("progressBar").style.width =
-    porcentaje + "%";
+    const progressBar =
+        document.getElementById(
+            "progressBar"
+        );
 
-  document.getElementById("statusText").innerText =
-    porcentaje === 100
-      ? "✓ Renta completa"
-      : "Información pendiente";
+    const statusText =
+        document.getElementById(
+            "statusText"
+        );
 
+    percentage.innerText =
+        porcentaje + "%";
+
+    progressBar.style.width =
+        porcentaje + "%";
+
+    if(porcentaje === 100){
+
+        percentage.style.color =
+            "var(--green)";
+
+        progressBar.style.background =
+            "var(--green)";
+
+        statusText.innerText =
+            "✓ Renta completa";
+
+        statusText.style.color =
+            "var(--green)";
+
+    }else{
+
+        percentage.style.color =
+            "var(--orange)";
+
+        progressBar.style.background =
+            "var(--orange)";
+
+        statusText.innerText =
+            "Información pendiente";
+
+        statusText.style.color =
+            "var(--navy)";
+    }
 }
 
-function calcularComision() {
+/* =========================
+   COMISIÓN
+========================= */
 
-  const tenant =
-    parseFloat(document.getElementById("tenantCommission").value) || 0;
+function calcularComision(){
 
-  const landlord =
-    parseFloat(document.getElementById("landlordCommission").value) || 0;
+    const tenant =
+        parseFloat(
+            document
+                .getElementById(
+                    "tenantCommission"
+                )
+                .value
+        ) || 0;
 
-  const total = tenant + landlord;
+    const landlord =
+        parseFloat(
+            document
+                .getElementById(
+                    "landlordCommission"
+                )
+                .value
+        ) || 0;
 
-  const commission = total * 0.35;
+    const total =
+        tenant + landlord;
 
-  document.getElementById("myCommission").innerText =
-    "€" + commission.toFixed(2).replace(".", ",");
+    const commission =
+        total * 0.35;
 
+    document
+        .getElementById(
+            "myCommission"
+        )
+        .innerText =
+            formatearEuro(commission);
+
+    document
+        .getElementById(
+            "commissionText"
+        )
+        .innerText =
+            formatearEuroSimple(tenant)
+            + " VAT + "
+            + formatearEuroSimple(landlord);
 }
 
-function guardarRenta() {
+function formatearEuro(numero){
 
-  actualizarProgreso();
-
-  alert(
-    "Por ahora estamos probando la interfaz. " +
-    "En la siguiente etapa conectaremos Google Sheets y Google Drive."
-  );
-
+    return new Intl.NumberFormat(
+        "es-ES",
+        {
+            style:"currency",
+            currency:"EUR"
+        }
+    ).format(numero);
 }
 
+function formatearEuroSimple(numero){
+
+    return "€" +
+        new Intl.NumberFormat(
+            "es-ES",
+            {
+                maximumFractionDigits:2
+            }
+        ).format(numero);
+}
+
+/* =========================
+   GUARDAR
+========================= */
+
+function guardarRenta(){
+
+    actualizarProgreso();
+    calcularComision();
+
+    const reference =
+        document
+            .getElementById("reference")
+            .value
+            .trim();
+
+    const client =
+        document
+            .getElementById("client")
+            .value
+            .trim();
+
+    if(!reference && !client){
+
+        alert(
+            "Puedes guardar información parcial, " +
+            "pero escribe al menos la referencia " +
+            "o el nombre del cliente para identificar la renta."
+        );
+
+        return;
+    }
+
+    alert(
+        "La interfaz está funcionando correctamente.\n\n" +
+        "En la siguiente etapa conectaremos este botón " +
+        "con Google Sheets y Google Drive para guardar " +
+        "la información y los documentos."
+    );
+}
+
+/* =========================
+   INICIALIZACIÓN
+========================= */
+
+actualizarMes();
 actualizarProgreso();
+calcularComision();
 
 </script>
 
