@@ -483,8 +483,9 @@ input[disabled]{
 ========================= */
 
 .mobile-logo{
-    width:85px;
-    height:auto;
+    width:45px;
+    height:45px;
+    object-fit:contain;
     display:block;
     margin:0 auto;
 }
