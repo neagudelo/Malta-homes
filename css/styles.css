@@ -56,18 +56,6 @@ body{
     margin:0 auto;
 }
 
-.logo h2{
-    color:#063f4c;
-    letter-spacing:2px;
-    font-size:20px;
-}
-
-.logo span{
-    font-family:Georgia,serif;
-    font-style:italic;
-    font-size:17px;
-}
-
 .menu-item{
     padding:13px 15px;
     margin-bottom:8px;
