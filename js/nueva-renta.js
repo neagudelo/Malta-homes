@@ -274,40 +274,22 @@ function formatearEuroSimple(numero) {
    GUARDAR RENTA
 ======================================== */
 
-function guardarRenta() {
+async function guardarRenta() {
 
     actualizarProgreso();
     calcularComision();
 
+    const obtenerValor = (id) => {
+        const elemento = document.getElementById(id);
+        return elemento ? elemento.value.trim() : "";
+    };
 
-    const referenceElement =
-        document.getElementById(
-            "reference"
-        );
-
-    const clientElement =
-        document.getElementById(
-            "client"
-        );
-
-
-    const reference =
-        referenceElement
-            ? referenceElement.value.trim()
-            : "";
-
-    const client =
-        clientElement
-            ? clientElement.value.trim()
-            : "";
-
+    const reference = obtenerValor("reference");
+    const client = obtenerValor("client");
 
     /*
-       Permitimos guardar rentas incompletas.
-
-       Solo necesitamos al menos referencia
-       o nombre del cliente para poder
-       identificar el registro.
+       Permitimos guardar rentas incompletas,
+       pero necesitamos poder identificarlas.
     */
 
     if (!reference && !client) {
@@ -321,22 +303,93 @@ function guardarRenta() {
         return;
     }
 
-
     /*
-       TEMPORAL:
-
-       En la siguiente etapa reemplazaremos
-       este mensaje por el envío real de los
-       datos a Google Sheets y los documentos
-       a Google Drive.
+       Calcular porcentaje de información completada
     */
 
-    alert(
-        "La interfaz está funcionando correctamente.\n\n" +
-        "En la siguiente etapa conectaremos este botón " +
-        "con Google Sheets y Google Drive para guardar " +
-        "la información y los documentos."
+    let completados = 0;
+
+    requisitos.forEach(([nombre, id]) => {
+        if (campoCompleto(id)) {
+            completados++;
+        }
+    });
+
+    const porcentaje = Math.round(
+        (completados / requisitos.length) * 100
     );
+
+    const estadoInformacion =
+        porcentaje === 100
+            ? "Completa"
+            : "Pendiente";
+
+
+    /*
+       Preparar información para Google Sheets
+    */
+
+    const datosRenta = {
+
+        reference: reference,
+        client: client,
+        source: obtenerValor("source"),
+
+        depositDate: obtenerValor("depositDate"),
+        contractDate: obtenerValor("contractDate"),
+        contractEndDate: obtenerValor("contractEndDate"),
+
+        property: obtenerValor("property"),
+
+        rentPrice: obtenerValor("rentPrice"),
+
+        tenantCommission:
+            obtenerValor("tenantCommission"),
+
+        landlordCommission:
+            obtenerValor("landlordCommission"),
+
+        phone: obtenerValor("phone"),
+        email: obtenerValor("email"),
+
+        landlord: obtenerValor("landlord"),
+        landlordContact:
+            obtenerValor("landlordContact"),
+
+        observations:
+            obtenerValor("observations"),
+
+        completionPercentage: porcentaje,
+        informationStatus: estadoInformacion
+    };
+
+
+    try {
+
+        const resultado =
+            await guardarRentaAPI(datosRenta);
+
+        alert(
+            "✅ Renta guardada correctamente.\n\n" +
+            "Cliente: " + (client || "Sin nombre") +
+            "\nReferencia: " + (reference || "Sin referencia") +
+            "\nCompletado: " + porcentaje + "%"
+        );
+
+        console.log(
+            "Renta guardada:",
+            resultado
+        );
+
+    } catch (error) {
+
+        alert(
+            "❌ No se pudo guardar la renta.\n\n" +
+            "Revisa la conexión e inténtalo nuevamente."
+        );
+
+        console.error(error);
+    }
 }
 
 
