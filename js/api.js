@@ -13,9 +13,12 @@ async function guardarRentaAPI(datosRenta) {
     try {
 
         const response = await fetch(API_URL, {
-            method: "POST",
-            body: JSON.stringify(datosRenta)
-        });
+    method: "POST",
+    headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(datosRenta)
+});
 
         const resultado = await response.json();
 
