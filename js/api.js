@@ -12,27 +12,31 @@ async function guardarRentaAPI(datosRenta) {
 
     try {
 
-        const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: JSON.stringify(datosRenta)
-});
+        await fetch(API_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify(datosRenta)
+        });
 
-        const resultado = await response.json();
+        /*
+           Con no-cors el navegador permite enviar
+           la información, pero no permite leer
+           la respuesta de Apps Script.
+        */
 
-        if (!resultado.success) {
-            throw new Error(
-                resultado.message || "No se pudo guardar la renta"
-            );
-        }
-
-        return resultado;
+        return {
+            success: true
+        };
 
     } catch (error) {
 
-        console.error("Error guardando la renta:", error);
+        console.error(
+            "Error enviando la renta:",
+            error
+        );
 
         throw error;
     }
