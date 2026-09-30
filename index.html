@@ -389,18 +389,12 @@
     <div class="header">
 
         <div>
-
-            <h1>
-                Rentas
-            </h1>
+            <h1>Rentas</h1>
 
             <p>
-                Consulta y administra todas tus
-                rentas registradas.
+                Consulta y administra todas tus rentas registradas.
             </p>
-
         </div>
-
 
         <button class="btn btn-primary"
                 onclick="showPage('nueva')">
@@ -410,22 +404,110 @@
     </div>
 
 
-    <div class="placeholder">
+    <!-- RESUMEN -->
 
-        <div class="big-icon">
-            🏡
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">
+                    Total rentas
+                </span>
+
+                <div class="stat-icon">
+                    🏠
+                </div>
+            </div>
+
+            <div class="stat-value"
+                 id="rentalsTotal">
+                0
+            </div>
         </div>
 
-        <h2>
-            Listado de rentas
-        </h2>
 
-        <p>
-            Aquí aparecerán las rentas cuando
-            conectemos la aplicación con Google Sheets.
-        </p>
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">
+                    Comisiones pendientes
+                </span>
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+            </div>
+
+            <div class="stat-value orange-value"
+                 id="rentalsPending">
+                0
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-top">
+                <span class="stat-label">
+                    Comisiones pagadas
+                </span>
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+            </div>
+
+            <div class="stat-value green-value"
+                 id="rentalsPaid">
+                0
+            </div>
+        </div>
 
     </div>
+
+
+    <!-- LISTADO -->
+
+    <section class="card">
+
+        <div class="header">
+
+            <div>
+                <h3>🏡 Rentas registradas</h3>
+
+                <p>
+                    Información almacenada en Malta Homes - Database.
+                </p>
+            </div>
+
+            <button class="btn"
+                    onclick="cargarRentas()">
+                ↻ Actualizar
+            </button>
+
+        </div>
+
+
+        <div id="rentalsList"
+             class="rentals-list">
+
+            <div class="empty-state">
+
+                <div class="icon">
+                    ⏳
+                </div>
+
+                <strong>
+                    Cargando rentas...
+                </strong>
+
+                <p>
+                    Estamos consultando la información.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </section>
 

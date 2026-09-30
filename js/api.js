@@ -3,11 +3,14 @@
    Conexión con Google Apps Script
 ======================================== */
 
-const API_URL = "https://script.google.com/macros/s/AKfycbydyLokxKhCnvFoOSlidLns1YadeF9ISICvrms9DjPKkwkyeSFBekpW6WkV7OXwBTLV_A/exec";
+const API_URL =
+    "https://script.google.com/macros/s/AKfycbydyLokxKhCnvFoOSlidLns1YadeF9ISICvrms9DjPKkwkyeSFBekpW6WkV7OXwBTLV_A/exec";
 
-/**
- * Envía una renta al backend de Malta Homes.
- */
+
+/* ========================================
+   GUARDAR RENTA
+======================================== */
+
 async function guardarRentaAPI(datosRenta) {
 
     try {
@@ -21,12 +24,6 @@ async function guardarRentaAPI(datosRenta) {
             body: JSON.stringify(datosRenta)
         });
 
-        /*
-           Con no-cors el navegador permite enviar
-           la información, pero no permite leer
-           la respuesta de Apps Script.
-        */
-
         return {
             success: true
         };
@@ -35,6 +32,47 @@ async function guardarRentaAPI(datosRenta) {
 
         console.error(
             "Error enviando la renta:",
+            error
+        );
+
+        throw error;
+    }
+}
+
+
+/* ========================================
+   OBTENER RENTAS
+======================================== */
+
+async function obtenerRentasAPI() {
+
+    try {
+
+        const response = await fetch(
+            API_URL + "?action=rentas"
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "No se pudo consultar las rentas"
+            );
+        }
+
+        const resultado = await response.json();
+
+        if (!resultado.success) {
+            throw new Error(
+                resultado.message ||
+                "No se pudieron obtener las rentas"
+            );
+        }
+
+        return resultado.rentas || [];
+
+    } catch (error) {
+
+        console.error(
+            "Error consultando las rentas:",
             error
         );
 
